@@ -14,7 +14,7 @@ import { CartService } from '@/app/services/cart/cart.service';
   imports: [RouterLink],
   templateUrl: './header.component.html',
 })
-export class Header implements OnInit {
+export class AppHeader implements OnInit {
   notHome = false;
   cartItemsCount = 0;
 

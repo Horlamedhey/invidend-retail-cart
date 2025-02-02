@@ -83,6 +83,7 @@ export class CartService {
 
   /** Apply discount code */
   applyDiscount(code: string): boolean {
+    // console.log(44444, code);
     if (this.validateDiscountCode(code)) {
       this.discountCode = code;
       this.updateStore();

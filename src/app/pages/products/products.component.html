@@ -1,36 +1,36 @@
 <div>
   <h2 class="text-2xl">Products</h2>
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 mt-6">
-    @for (product of products; track product.id) {
+    @for (productItem of productItems; track productItem.product.id) {
     <div
       class="shadow-md hover:shadow-xl transition duration-500 rounded-md overflow-hidden"
     >
       <img
-        [src]="product.image"
-        alt="{{ product.name }}"
+        [src]="productItem.product.image"
+        alt="{{ productItem.product.name }}"
         class="w-full h-56 object-cover"
       />
       <div class="px-2.5 mt-3.5 pb-1">
         <div class="flex justify-between">
-          <h3 class="text-xl">{{ product.name }}</h3>
+          <h3 class="text-xl">{{ productItem.product.name }}</h3>
           <div class="text-right flex flex-col items-center">
-            <p class="text-gray-500 italic">${{ product.price }}</p>
+            <p class="text-gray-500 italic">${{ productItem.product.price }}</p>
             <div class="mt-2">
-              @if(product.quantity){
+              @if(productItem.quantity){
               <quantity-control
-                [quantity]="product.quantity"
+                [quantity]="productItem.quantity"
                 [minQuantity]="0"
                 [maxQuantity]="99"
                 (quantityChange)="
                   $event > 0
-                    ? addToCart(product, $event)
-                    : removeFromCart(product.id)
+                    ? addToCart(productItem.product, $event)
+                    : removeFromCart(productItem.product.id)
                 "
               ></quantity-control>
               } @else{
               <button
                 class="rounded p-1 hover:bg-black/70 hover:text-white transition duration-500"
-                (click)="addToCart(product)"
+                (click)="addToCart(productItem.product)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

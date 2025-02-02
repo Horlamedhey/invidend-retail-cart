@@ -5,8 +5,9 @@ import { CartService } from '@/app/services/cart/cart.service';
 import { QuantityControl } from '@/app/components/quantity-control/quantity-control.component';
 import { combineLatest, map } from 'rxjs';
 
-interface ProductWithQuantity extends Product {
-  quantity?: number;
+interface ProductWithQuantity {
+  product: Product;
+  quantity: number;
 }
 
 @Component({
@@ -16,7 +17,7 @@ interface ProductWithQuantity extends Product {
   templateUrl: './products.component.html',
 })
 export class Products implements OnInit {
-  products: ProductWithQuantity[] = [];
+  productItems: ProductWithQuantity[] = [];
 
   constructor(
     private readonly productService: ProductService,
@@ -35,13 +36,13 @@ export class Products implements OnInit {
               (item) => item.product.id === product.id
             );
             return {
-              ...product,
+              product,
               quantity: cartItem?.quantity ?? 0,
             };
           })
         )
       )
-      .subscribe((products) => (this.products = products));
+      .subscribe((products) => (this.productItems = products));
   }
 
   addToCart(product: Product, quantity: number = 1): void {
