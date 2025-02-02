@@ -77,6 +77,7 @@ export class CartService {
     );
     if (index !== -1) {
       this.cartItems.splice(index, 1);
+      this.cartItemsCount.next(this.cartItemsCount.value - 1);
       this.updateStore();
     }
   }
