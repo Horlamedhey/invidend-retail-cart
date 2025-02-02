@@ -1,0 +1,17 @@
+<div class="quantity-control">
+  <div class="quantity-input">
+    <button (click)="decrementQuantity()" [disabled]="quantity <= minQuantity">
+      -
+    </button>
+    <input
+      type="number"
+      [value]="quantity"
+      (input)="onInputChange($event)"
+      [min]="minQuantity"
+      [max]="maxQuantity"
+    />
+    <button (click)="incrementQuantity()" [disabled]="quantity >= maxQuantity">
+      +
+    </button>
+  </div>
+</div>

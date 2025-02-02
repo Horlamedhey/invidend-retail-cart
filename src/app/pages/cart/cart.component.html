@@ -1,0 +1,95 @@
+<div>
+  <h2 class="text-2xl">Cart</h2>
+  @if(cart.items.length){
+
+  <div class="max-w-3xl">
+    <div class="grid grid-cols-1 gap-8 mt-6">
+      @for( item of cart.items; track item.product.id){
+      <div
+        class="shadow-md hover:shadow-xl transition duration-500 rounded-md overflow-hidden flex h-20"
+      >
+        <img
+          [src]="item.product.image"
+          alt="{{ item.product.name }}"
+          class="h-full w-28 object-cover"
+        />
+        <div class="px-2.5 py-1 pb-1 flex justify-between grow">
+          <div class="grow flex flex-col justify-around">
+            <div class="grid grid-cols-3">
+              <h3 class="text-xl">{{ item.product.name }}</h3>
+              <span class="text-gray-500 italic text-center">
+                x{{ item.quantity }}
+              </span>
+              <span class="text-gray-500 italic text-center">
+                {{ (item.quantity * item.product.price).toFixed(2) }}
+              </span>
+            </div>
+
+            <p class="text-gray-500 italic">${{ item.product.price }}</p>
+          </div>
+          <div class="flex flex-col items-center gap-0.5">
+            <button
+              class="rounded p-1 hover:bg-black/70 hover:text-white transition duration-500"
+              (click)="(4)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-6.5"
+              >
+                <title>Remove Item</title>
+                <path
+                  d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z"
+                />
+              </svg>
+            </button>
+            <quantity-control
+              [quantity]="item.quantity"
+              [minQuantity]="0"
+              [maxQuantity]="99"
+              (quantityChange)="
+                $event > 0
+                  ? addToCart(item.product, $event)
+                  : removeFromCart(item.product.id)
+              "
+            ></quantity-control>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="mt-32 flex flex-col items-end">
+    <div>
+      <input
+        type="text"
+        name="discountCode"
+        [disabled]="discountApplied"
+        [(ngModel)]="discountCode"
+        placeholder="Enter discount code"
+        class="w-64 p-2 shadow-md inset-shadow-2xs rounded-md"
+      />
+      <button
+        (click)="applyDiscount()"
+        [disabled]="!discountCode || discountApplied"
+        class="shadow-md inset-shadow-2xs rounded-md p-2 not-disabled:active:bg-black/40 transition duration-300 not-disabled:hover:bg-black/20 ml-4"
+      >
+        Apply Discount
+      </button>
+      @if (errorMessage) {
+      <p class="text-red-500 mt-1">{{ errorMessage }}</p>
+      }
+    </div>
+    <div class="mt-8">
+      <span class="text-gray-500 italic text-xl">${{ cart.total }}</span>
+      <h3 class="text-4xl">Total</h3>
+    </div>
+  </div>
+  } @else{
+  <div class="flex justify-center items-center h-96">
+    <p class="text-2xl text-gray-500 italic">No items in cart</p>
+  </div>
+  }
+</div>

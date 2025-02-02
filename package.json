@@ -1,5 +1,5 @@
 {
-  "name": "invidend",
+  "name": "retail-cart",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:invidend": "node dist/invidend/server/server.mjs"
+    "serve:ssr:retail-cart": "node dist/retail-cart/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +21,11 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.14",
+    "@tailwindcss/postcss": "^4.0.3",
     "express": "^4.18.2",
+    "postcss": "^8.5.1",
     "rxjs": "~7.8.0",
+    "tailwindcss": "^4.0.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
