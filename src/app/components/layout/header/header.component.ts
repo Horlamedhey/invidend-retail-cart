@@ -13,9 +13,8 @@ import { CartService } from '@/app/services/cart/cart.service';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
 })
-export class AppHeader implements OnInit {
+export class Header implements OnInit {
   notHome = false;
   cartItemsCount = 0;
 

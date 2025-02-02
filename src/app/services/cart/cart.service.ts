@@ -1,4 +1,4 @@
-import { effect, Inject, Injectable, OnInit } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Product } from '@/app/models/product.model';
 import { CartItem } from '@/app/models/cartItem.model';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -18,7 +18,6 @@ export const INIT_CART_VAL: CartProps = {
 @Injectable({
   providedIn: 'root',
 })
-// implements OnInit
 export class CartService {
   private readonly cartItems: CartItem[] = [];
   private discountCode?: string;
@@ -34,8 +33,9 @@ export class CartService {
 
     if (localStorage) this.initCart();
   }
+  /** Initialize the cart. */
 
-  initCart() {
+  private initCart() {
     const cartData = localStorage.getItem('cart');
     if (cartData) {
       const cart = JSON.parse(cartData);
@@ -46,17 +46,17 @@ export class CartService {
     }
   }
 
-  // Get cart items
+  /** Get cart items. */
   getCart(): Observable<CartProps> {
     return this.cart.asObservable();
   }
 
-  // Get cart items
+  /** Get number of cart items. */
   getCartItemsCount(): Observable<number> {
     return this.cartItemsCount.asObservable();
   }
 
-  // Add product to cart
+  /** Add a product to the cart.  */
   addToCart(product: Product, quantity: number) {
     const existingItem = this.cartItems.find(
       (item) => item.product.id === product.id
@@ -70,7 +70,7 @@ export class CartService {
     this.updateStore();
   }
 
-  // Remove product from cart
+  /** Remove a product from the cart  */
   removeFromCart(productId: number) {
     const index = this.cartItems.findIndex(
       (item) => item.product.id === productId
@@ -81,19 +81,7 @@ export class CartService {
     }
   }
 
-  // Update product quantity
-  updateQuantity(productId: number, quantity: number) {
-    const item = this.cartItems.find((item) => item.product.id === productId);
-    if (item) {
-      item.quantity = quantity;
-      if (item.quantity <= 0) {
-        this.removeFromCart(productId);
-      } else {
-        this.updateStore();
-      }
-    }
-  }
-
+  /** Apply discount code */
   applyDiscount(code: string): boolean {
     if (this.validateDiscountCode(code)) {
       this.discountCode = code;
@@ -102,25 +90,26 @@ export class CartService {
     }
     return false;
   }
-  // Validate discount code
-  validateDiscountCode(code: string): boolean {
+
+  /** Validate discount code */
+  private validateDiscountCode(code: string): boolean {
     return !!this.discountCodes[code];
   }
 
-  // Calculate Individual Item subtotal
+  /** Calculate Individual Item subtotal */
   getItemSubtotal(item: CartItem): number {
     return item.product.price * item.quantity;
   }
 
-  // Calculate cart subtotal
-  getSubtotal(): number {
+  /** Calculate cart subtotal  */
+  private getSubtotal(): number {
     return this.cartItems.reduce(
       (total, item) => total + this.getItemSubtotal(item),
       0
     );
   }
 
-  // Calculate grand total
+  /** Calculate grand total  */
   private getTotal(): number {
     let subtotal = this.getSubtotal();
     switch (this.discountCode) {
@@ -136,6 +125,7 @@ export class CartService {
     return Number(subtotal.toFixed(2));
   }
 
+  /** Update the cart store */
   private updateStore() {
     const cartData = {
       items: [...this.cartItems],
