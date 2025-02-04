@@ -84,13 +84,19 @@ export class CartService {
 
   /** Apply discount code */
   applyDiscount(code: string): boolean {
-    // console.log(44444, code);
     if (this.validateDiscountCode(code)) {
       this.discountCode = code;
       this.updateStore();
       return true;
     }
     return false;
+  }
+
+  /** Remove discount code */
+  removeDiscount() {
+    this.discountCode = undefined;
+    this.updateStore();
+    return true;
   }
 
   /** Validate discount code */

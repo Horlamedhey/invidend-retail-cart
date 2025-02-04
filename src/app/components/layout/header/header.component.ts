@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
+  ActivatedRouteSnapshot,
   NavigationEnd,
   Router,
   RouterLink,
@@ -15,7 +16,7 @@ import { CartService } from '@/app/services/cart/cart.service';
   templateUrl: './header.component.html',
 })
 export class AppHeader implements OnInit {
-  notHome = false;
+  isCart = false;
   cartItemsCount = 0;
 
   constructor(
@@ -32,11 +33,11 @@ export class AppHeader implements OnInit {
           while (route.firstChild) {
             route = route.firstChild; // Get the deepest active route
           }
-          return route.snapshot.url;
+          return route.snapshot;
         })
       )
-      .subscribe((url: UrlSegment[]) => {
-        this.notHome = Boolean(url.length);
+      .subscribe((snapshot?: ActivatedRouteSnapshot) => {
+        this.isCart = snapshot?.routeConfig?.path == 'cart';
       });
     this.cartService.getCartItemsCount().subscribe((count) => {
       this.cartItemsCount = count;

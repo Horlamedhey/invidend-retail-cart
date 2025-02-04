@@ -19,11 +19,12 @@ export class Cart implements OnInit {
   discountApplied = false;
   errorMessage = '';
   cart: CartProps = INIT_CART_VAL;
+
   constructor(private readonly cartService: CartService) {}
+
   ngOnInit() {
     this.cartService.getCart().subscribe((cart) => {
       this.cart = cart;
-      this.discountCode = cart.discountCode || '';
       this.checkDiscountCode();
     });
   }
@@ -43,12 +44,19 @@ export class Cart implements OnInit {
     } else {
       this.errorMessage = '';
     }
-    this.checkDiscountCode();
+  }
+
+  removeDiscount(): void {
+    this.cartService.removeDiscount();
   }
 
   checkDiscountCode(): void {
     if (this.cart.discountCode) {
+      this.discountCode = this.cart.discountCode;
       this.discountApplied = true;
+    } else {
+      this.discountCode = '';
+      this.discountApplied = false;
     }
   }
 }

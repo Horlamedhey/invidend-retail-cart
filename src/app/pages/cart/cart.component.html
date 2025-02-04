@@ -78,11 +78,15 @@
         class="w-64 p-2 shadow-md inset-shadow-2xs rounded-md"
       />
       <button
-        (click)="applyDiscount()"
-        [disabled]="!discountCode || discountApplied"
-        class="shadow-md inset-shadow-2xs rounded-md p-2 not-disabled:active:bg-black/40 transition duration-300 not-disabled:hover:bg-black/20 ml-4"
+        (click)="discountApplied ? removeDiscount() : applyDiscount()"
+        [class]="
+          'shadow-md inset-shadow-2xs rounded-md p-2 transition duration-300 ml-4 ' +
+          (discountApplied
+            ? 'bg-red-500 text-white active:bg-red-500/40 hover:bg-red-500/80'
+            : ' active:bg-black/40')
+        "
       >
-        Apply Discount
+        {{ discountApplied ? "Remove" : "Apply" }} Discount
       </button>
       @if (errorMessage) {
       <p class="text-red-500 mt-1">{{ errorMessage }}</p>

@@ -1,0 +1,23 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#c3bf4b",
+    "activityBar.background": "#c3bf4b",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#308f8c",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#c3bf4b",
+    "statusBar.background": "#a4a137",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#7e7c2a",
+    "statusBarItem.remoteBackground": "#a4a137",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#a4a137",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#a4a13799",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#a4a137",
+  "cSpell.words": ["Invendiv"]
+}

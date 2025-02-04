@@ -86,22 +86,22 @@ describe('AppHeader (Standalone Angular 18)', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set notHome to false when the route is home (empty URL)', fakeAsync(() => {
+  it('should set isCart to false when the route is home (empty URL)', fakeAsync(() => {
     routerEventsSubject.next(new NavigationEnd(1, '', ''));
     tick();
     fixture.detectChanges();
-    expect(component.notHome).toBeFalse();
+    expect(component.isCart).toBeFalse();
   }));
 
-  it('should set notHome to true when the route is not home (non-empty URL)', fakeAsync(() => {
+  it('should set isCart to true when the route is cart (non-empty URL)', fakeAsync(() => {
     (activatedRouteStub as any).firstChild = {
-      snapshot: { url: [{ path: 'test' }] },
+      snapshot: { routeConfig: { path: 'cart' } },
       firstChild: null,
     };
-    routerEventsSubject.next(new NavigationEnd(1, '/test', '/test'));
+    routerEventsSubject.next(new NavigationEnd(2, '/cart', '/cart'));
     tick();
     fixture.detectChanges();
-    expect(component.notHome).toBeTrue();
+    expect(component.isCart).toBeTrue();
   }));
 
   it('should update cartItemsCount from CartService', fakeAsync(() => {
