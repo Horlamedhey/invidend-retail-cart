@@ -69,27 +69,35 @@
 
   <div class="mt-32 flex flex-col items-end">
     <div>
-      <input
-        type="text"
-        name="discountCode"
-        [disabled]="discountApplied"
-        [(ngModel)]="discountCode"
-        placeholder="Enter discount code"
-        class="w-64 p-2 shadow-md inset-shadow-2xs rounded-md"
-      />
-      <button
-        (click)="discountApplied ? removeDiscount() : applyDiscount()"
-        [class]="
-          'shadow-md inset-shadow-2xs rounded-md p-2 transition duration-300 ml-4 ' +
-          (discountApplied
-            ? 'bg-red-500 text-white active:bg-red-500/40 hover:bg-red-500/80'
-            : ' active:bg-black/40')
-        "
-      >
-        {{ discountApplied ? "Remove" : "Apply" }} Discount
-      </button>
+      <div class="flex flex-col sm:flex-row gap-4 items-end">
+        <div>
+          @if (errorMessage) {
+          <p class="text-red-500 mt-0.5 sm:hidden">{{ errorMessage }}</p>
+          }
+          <input
+            type="text"
+            name="discountCode"
+            [disabled]="discountApplied"
+            [(ngModel)]="discountCode"
+            placeholder="Enter discount code"
+            class="w-64 p-2 shadow-md inset-shadow-2xs rounded-md"
+          />
+        </div>
+        <button
+          (click)="discountApplied ? removeDiscount() : applyDiscount()"
+          [disabled]="!discountCode"
+          [class]="
+            'shadow-md inset-shadow-2xs rounded-md p-2 transition duration-300 max-w-3/4 ' +
+            (discountApplied
+              ? 'bg-red-500 text-white active:bg-red-500/40 hover:bg-red-500/80'
+              : 'not-disabled:active:bg-black/40')
+          "
+        >
+          {{ discountApplied ? "Remove" : "Apply" }} Discount
+        </button>
+      </div>
       @if (errorMessage) {
-      <p class="text-red-500 mt-1">{{ errorMessage }}</p>
+      <p class="text-red-500 mt-1 hidden sm:block">{{ errorMessage }}</p>
       }
     </div>
     <div class="mt-8">
